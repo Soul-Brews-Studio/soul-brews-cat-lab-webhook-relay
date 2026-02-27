@@ -1,0 +1,14 @@
+name = "soul-brews-cat-lab-webhook-relay"
+main = "src/worker.ts"
+compatibility_date = "2025-06-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "soul-brews-cat-lab"
+migrations_dir = "drizzle"

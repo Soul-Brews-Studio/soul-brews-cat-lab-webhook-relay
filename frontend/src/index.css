@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@source "../../frontend/src/**/*.{tsx,ts}";
+
+/* === Theme: Dark OLED + Cyan Accent === */
+@theme {
+  --color-bg: #070a0f;
+  --color-bg-card: #0d1219;
+  --color-border: rgba(148,163,184,0.12);
+  --color-border-accent: rgba(0,229,188,0.25);
+  --color-accent: #00e5bc;
+  --color-accent-dim: rgba(0,229,188,0.10);
+  --color-text: #F1F5F9;
+  --color-text-muted: #94A3B8;
+  --color-red: #ff4060;
+  --color-yellow: #f59e0b;
+  --color-green: #00e5bc;
+
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-spin-dot: spin-dot 0.6s linear infinite;
+}
+
+/* === Base === */
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(148,163,184,0.2) transparent;
+  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.2); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.35); }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--color-border); }
+  th {
+    font-family: var(--font-mono);
+    color: var(--color-text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 500;
+  }
+}
+
+/* === Keyframes === */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 4px var(--color-accent); opacity: 1; }
+  50% { box-shadow: 0 0 10px var(--color-accent), 0 0 20px rgba(0,229,188,0.3); opacity: 0.8; }
+}
+@keyframes spin-dot {
+  0%   { transform: rotate(0deg) scale(1); }
+  50%  { transform: rotate(180deg) scale(0.6); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* === Components === */
+@layer components {
+  /* Card */
+  .card {
+    @apply bg-bg-card border border-border rounded-lg p-4 overflow-hidden;
+  }
+
+  /* Buttons */
+  .btn-sm {
+    @apply bg-transparent border border-border text-text-muted px-2.5 py-1 rounded text-xs cursor-pointer font-sans transition-colors;
+    &:hover { @apply border-border-accent text-text; }
+    &:disabled { @apply opacity-50 cursor-not-allowed; }
+  }
+  .btn-active { @apply border-accent text-accent; }
+  .btn-danger-sm {
+    @apply border-red/30 text-red;
+    &:hover { @apply border-red bg-red/10; }
+  }
+  .btn-suggest {
+    @apply border-border-accent text-accent font-mono text-[11px];
+    &:hover { @apply bg-accent-dim; }
+  }
+
+  /* JSON syntax highlighting */
+  .jk { color: var(--color-accent); }
+  .js { color: #a8d8f0; }
+  .jn { color: #f59e0b; }
+  .jb { color: #ff9f7f; }
+  .jl { color: var(--color-text-muted); }
+
+  /* Interactive JSON */
+  .clickable { @apply cursor-pointer rounded-sm transition-colors hover:bg-white/[0.08]; }
+  .json-toggle { @apply cursor-pointer text-text-muted select-none hover:text-accent; }
+
+  /* Alias tag */
+  .alias-tag {
+    @apply inline-block bg-accent-dim text-accent text-[10px] font-semibold px-1.5 py-px rounded ml-1 align-middle font-sans tracking-wide;
+  }
+
+  /* Hit row */
+  .new-hit td { background: var(--color-accent-dim); }
+  .new-hit td:first-child { box-shadow: inset 3px 0 0 var(--color-accent); }
+
+  /* Payload */
+  .payload {
+    @apply relative bg-bg border border-border rounded-md p-3 font-mono text-xs whitespace-pre-wrap break-all max-h-[480px] overflow-y-auto text-text;
+    scrollbar-color: var(--color-border) var(--color-bg);
+    &:hover .btn-fullscreen { @apply opacity-100; }
+  }
+
+  /* Badges */
+  .badge { @apply text-[11px] px-1.5 py-0.5 rounded font-semibold; }
+  .badge-user, .badge-User { background: rgba(96,165,250,0.12); color: #60a5fa; }
+  .badge-group, .badge-Group { background: rgba(110,231,183,0.12); color: #6ee7b7; }
+  .badge-room, .badge-Room { background: rgba(251,191,36,0.12); color: #fbbf24; }
+  .badge-message, .badge-Message { background: rgba(192,132,252,0.12); color: #c084fc; }
+  .badge-custom, .badge-Custom, .badge-other { @apply bg-white/[0.06] text-text-muted; }
+}
+
+/* === Responsive === */
+@media (max-width: 640px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+  .stat-card { padding: 14px 12px !important; }
+  .stat-val { font-size: 24px !important; }
+  .quota-track { flex: 0 0 80px !important; }
+}

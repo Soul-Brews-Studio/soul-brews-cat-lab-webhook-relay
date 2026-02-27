@@ -1,0 +1,1 @@
+ALTER TABLE `webhook_hits` ADD `response_ms` integer NOT NULL DEFAULT 0;

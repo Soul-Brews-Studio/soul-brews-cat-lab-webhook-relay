@@ -1,0 +1,1 @@
+ALTER TABLE `forward_rules` ADD `persist` integer DEFAULT true NOT NULL;

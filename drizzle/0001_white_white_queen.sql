@@ -1,0 +1,1 @@
+ALTER TABLE `webhook_hits` DROP COLUMN `response_ms`;

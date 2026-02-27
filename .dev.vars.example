@@ -1,0 +1,3 @@
+API_TOKEN=admin:changeme
+# Optional: auto-fetch LINE display names for aliases
+# LINE_CHANNEL_ACCESS_TOKEN=your-channel-access-token
